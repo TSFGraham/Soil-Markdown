@@ -1,0 +1,44 @@
+---
+title: "Soil Carbon Concentrations"
+author: "Nick Graham"
+date: "3/5/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(MASS)
+library(ggplot2)
+library(dplyr)
+library(scales)
+library(readr)
+
+Soil_C_CV<-read.csv("//tsf-server/Documents/PUBLIC/Programs & Policy/00 Ecosystem Resiliency/Meadows/PROJECTS/Clover Valley/Data/Data_Analysis_R/Soil Carbon/Soil_C_CV.csv")
+```
+
+## Total Organic Carbon Concentrations
+
+This a html output from R Markdown that serves as a test project for creation of reports. This report details soil carbon concentration changes from 2017 to 2019 at the Clover Valley Ranch. Total Organic Concentration (TOC) data are preliminary and will be refined following lab analysis completion. The following table represents a summary data table of soil cores collected in 2017 and 2019
+
+```{r Soil Carbon, echo=FALSE}
+ 
+summary(Soil_C_CV)
+
+```
+
+```{r boxplot, include=FALSE}
+ggplot(Soil_C_CV, aes(y=C.stock..kg.m2., x=factor(Soil.ID), fill=factor(Soil.ID), col=factor(Year)))+geom_boxplot()+scale_color_manual(values = c("Black","White"))
+ggplot(Soil_C_CV, aes(y=C.stock..kg.m2., x=factor(Soil.ID), fill=factor(Soil.ID), col=factor(Year)))+geom_boxplot()+scale_color_manual(values = c("Black","White"))->Soil_R1
+Soil_R1+theme(panel.background = element_rect("Gray"))+theme(panel.grid = element_line("lightgray"))
+Soil_R1+theme(panel.background = element_rect("Gray"))+theme(panel.grid = element_line("lightgray"))->Soil_R2
+Soil_R2+labs(title = "Clover Valley Carbon Stock Ranges (0-45 cm) ", x= "Site ID", y="Total Organic Carbon (kg/m2)", col="Year", fill="Site ID")
+Soil_R2+labs(title = "Clover Valley Carbon Stock Ranges (0-45 cm) ", x= "Site ID", y="Total Organic Carbon (kg/m2)", col="Year", fill="Site ID")->Soil_R3
+Soil_R3+theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+
+```
+
+
+```{r display, echo=FALSE}
+Soil_R3+theme(plot.title = element_text(hjust = 0.5, face = "bold"))
+```
+
